@@ -62,7 +62,7 @@ plugins:
 author:
   name   : "Ayush Singh"
   avatar : "/assets/images/bio-photo.jpeg"
-  bio    : "Clinical Machine Learning Engineer, Bodybuilder, Artist and a Fan of Hudson River Valley School."
+  bio    : "Clinical Machine Learning Engineer, Bodybuilder, Artist and a fan of Hudson River Valley School."
   links:
     - label: "Website"
       icon: "fas fa-fw fa-link"

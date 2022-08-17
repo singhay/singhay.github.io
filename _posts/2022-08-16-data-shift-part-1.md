@@ -2,10 +2,9 @@
 title: "Data Distribution Shifts and Monitoring Part 1"
 date: 2022-08-16T15:34:30-04:00 
 categories:
-  - Blog
+  - Machine Learning
 tags:
-  - link
-  - Post Formats
+  - machine learning
 link: https://huyenchip.com/2022/02/07/data-distribution-shifts-and-monitoring.html
 ---
 
