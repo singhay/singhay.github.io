@@ -163,10 +163,7 @@ I have divided the approaches one can take to address distribution shift based o
 1. Statistical testing on average metric degradation e.g. probability, accuracy of a batch
 2. Use MSP baseline calculated post-training to mark mis-classified or out of domain samples.
 3. MMD or Wasserstein (EMD) distance check (not KL as it’s not symmetric) between mean training set and inference set encoding. The inference set is created using optimal time-window calculated in pre-training phase.
-4. Rely on adaptation techniques i.e. continual pre-training (not fine-tune) which comes free. Use a separate VM to adapt OR get creative with your usages e.g. re-use the same machine you have for production to train. 
-    
-    Keep in mind that mitigation comes with its own can of worms, the biggest one being *catastrophic forgetting*. Remember, the biggest challenge back in 2016 with trying to do transfer learning was *catastrophic forgetting*, which happens when a model forgets it’s priors or in other words forgets what it had learned during training from original data when trained on a new dataset. Quite a lot of research has gone into trying to avoid it like removing lower layers, using smaller learning rate, distillation until LLMs came along that even though showed signs of *catastrophic forgetting* but to a smaller extent.5
-    
+4. Rely on adaptation techniques i.e. continual pre-training (not fine-tune) which comes free. Use a separate VM to adapt OR get creative with your usages e.g. re-use the same machine you have for production to train. Keep in mind that mitigation comes with its own can of worms, the biggest one being *catastrophic forgetting*. Remember, the biggest challenge back in 2016 with trying to do transfer learning was *catastrophic forgetting*, which happens when a model forgets it’s priors or in other words forgets what it had learned during training from original data when trained on a new dataset. Quite a lot of research has gone into trying to avoid it like removing lower layers, using smaller learning rate, distillation until LLMs came along that even though showed signs of *catastrophic forgetting* but to a smaller extent.5
 5. Cluster assignment testing: keep tabs on how easily can a given test sample be assigned a cluster. This will not scale if the data high dimensional.
 
 # Datasets
