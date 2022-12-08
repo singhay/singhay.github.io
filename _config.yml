@@ -14,7 +14,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: Ayush Singh's blog
-email: firstname.lastname@msgonlinkdInInstead.com
+email: firstname.lastname@msgOnlinkdInInstead.com
 description: >- # this means to ignore newlines until "baseurl:"
   Ayush Singh is a Research Engineer working at the intersection of Natural Language Processing, 
   Machine Learning and Healthcare. He has worked on applications ranging from modeling physics 
@@ -25,6 +25,7 @@ twitter_username: singhay_mle
 github_username: singhay
 minimal_mistakes_skin: default
 search: true
+og_image: /assets/images/Paintings_pre_2020.jpeg
 
 # Build settings
 markdown: kramdown
@@ -62,7 +63,7 @@ plugins:
 author:
   name   : "Ayush Singh"
   avatar : "/assets/images/bio-photo.jpeg"
-  bio    : "Clinical Machine Learning Engineer, Bodybuilder, Artist and a fan of Hudson River Valley School."
+  bio    : "Machine Learning Engineer, Artist and a fan of Hudson River Valley School."
   links:
     - label: "Website"
       icon: "fas fa-fw fa-link"
@@ -115,3 +116,9 @@ category_archive:
 tag_archive:
   type: liquid
   path: /tags/
+
+lunr:
+  search_within_pages: true
+
+google:
+  search_engine_id: YOUR_SEARCH_ENGINE_ID
