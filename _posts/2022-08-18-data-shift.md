@@ -6,7 +6,7 @@ excerpt_separator: "<!--more-->"
 categories:
   - Machine Learning
 tags:
-  - machine learning
+  - machine-learning
   - MLOps
 toc: true
 toc_label: "Table of Contents"
