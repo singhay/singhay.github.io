@@ -26,7 +26,9 @@ github_username: singhay
 minimal_mistakes_skin: default
 search: true
 og_image: /assets/images/Paintings_pre_2020.jpeg
-
+teaser: /assets/images/Paintings_pre_2020.jpeg
+url: "https://singhay.github.io"
+logo: favicon.ico
 # Build settings
 markdown: kramdown
 remote_theme: mmistakes/minimal-mistakes
@@ -34,7 +36,7 @@ remote_theme: mmistakes/minimal-mistakes
 permalink: /:categories/:title/
 paginate: 5 # amount of posts to show
 paginate_path: /page:num/
-timezone: # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+timezone: pst # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
 include:
   - _pages
@@ -107,6 +109,7 @@ defaults:
       comments: true
       share: true
       related: true
+      show_date: true
   # _pages
   - scope:
       path: "_pages"
@@ -114,6 +117,11 @@ defaults:
     values:
       layout: single
       author_profile: true
+
+comments:
+  provider: "disqus"
+  disqus:
+    shortname: "singhay"
 
 category_archive:
   type: liquid
@@ -127,3 +135,5 @@ lunr:
 
 google:
   search_engine_id: YOUR_SEARCH_ENGINE_ID
+
+google_site_verification: "G-8VF0K5701P"
