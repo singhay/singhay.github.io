@@ -85,7 +85,7 @@ This loss is computed as follows:
 
 Since measurement noise and robustness to it plays a crucial role in CV, we also setup auxiliary tasks to identify the type of noise itself. The other method would be recording metadata embedded in images (camera type, geo tag, resolution, etc) from EXIF/TIFF tags or computed from it like HSB (hue, saturation, brightness) and comparing it at inference to flag anomalous samples. 
 
-While most of the noise can be eye-balled, there is a type of noise that bypasses human eye but affects models drastically. Seminal paper by … took the CV world by storm that showed an image can be modified in ways that changes model behavior but is indistinguishable to human eyes. Eversince then, tremendous work has gone into making models robust against noise like this especially in production. Initial works proposed using constrained noise sampled during training, however that came with guesswork of identifying noise types beforehand which is hard to do. The prominent among them is adversarial adaption which introduces  ….  For details on different types of attacks and countermeasures, refer to survey by Akhtar et al. [2] [https://www.memphis.edu/cs/research/tech_reports/tr-cs-19-002.pdf](https://www.memphis.edu/cs/research/tech_reports/tr-cs-19-002.pdf) 
+While most of the noise can be eye-balled, there is a type of noise that bypasses human eye but affects models drastically. Seminal paper by … took the CV world by storm that showed an image can be modified in ways that changes model behavior but is indistinguishable to human eyes. Eversince then, tremendous work has gone into making models robust against noise like this especially in production. Initial works proposed using constrained noise sampled during training, however that came with guesswork of identifying noise types beforehand which is hard to do. The prominent among them is adversarial adaption which introduces noise that model defaults on as one of the labels and the updates model by teaching it to account for the adversarial noise as well. For details on different types of attacks and countermeasures, refer to survey by [Akhtar et al.](https://www.memphis.edu/cs/research/tech_reports/tr-cs-19-002.pdf)
 
 ### NLP
 
@@ -175,8 +175,6 @@ Oftentimes, it’s hard to collect data that is naturally labelled in order to s
 
 Sagawa et al introduced [WILDS](https://wilds.stanford.edu/datasets/) is curated collection of datasets from different domains ranging from images, biomedical graphs to product reviews. The goal of WILDS is to allow researchers to test both OoD and sub-population shift generalization.  An extension of WILDS with curated unsupervised examples was also [introduced recently](https://openreview.net/forum?id=2EhHKKXMbG0). These datasets span a wide range of applications (from histology to wildlife conservation), tasks (classification, regression, and detection), and modalities (photos, satellite images, microscope slides, text, molecular graphs)
 
- 
-
 ![https://wilds.stanford.edu/assets/images/combined_datasets_summary.png](https://wilds.stanford.edu/assets/images/combined_datasets_summary.png)
 
 ## NLP datasets
@@ -190,11 +188,9 @@ For natural language processing, shift is much harder to detect compared to visi
 5. **WMT News Crawl**: collection of news articles timestamped with year of publication from 2007 - 2021.
 6. **arXiv**: highly granular timestamped collection of scientific abstracts along with metadata on various domains like physics, maths and computer science.
 
-### CV datasets
+## CV datasets
 
-Similar to NLP, in and out-domain datasets can be easily created by training on dataset from one domain and applying on other.  Note that for iWildCam and FMoW in WILDS, [recent work](https://openreview.net/forum?id=9vxOrkNTs1x) has found 1) weak correlations between validation and test set 2) high correlation between some domains 3) baselines being sensitive to hyper-parameters 4) cross-validation is crucial when working with these datasets.
-
-For example, one can train on [Landscape Pictures](https://www.kaggle.com/arnaud58/landscape-pictures) and [IEEE Signal Processing Society Camera Model Identification](https://www.kaggle.com/c/sp-society-camera-model-identification)
+Similar to NLP, in and out-domain datasets can be easily created by training on dataset from one domain and applying on other.  Note that for iWildCam and FMoW in WILDS, [recent work](https://openreview.net/forum?id=9vxOrkNTs1x) has found 1) weak correlations between validation and test set 2) high correlation between some domains 3) baselines being sensitive to hyper-parameters 4) cross-validation is crucial when working with these datasets. Other datasets exists suchs as [Landscape Pictures](https://www.kaggle.com/arnaud58/landscape-pictures) and [IEEE Signal Processing Society Camera Model Identification](https://www.kaggle.com/c/sp-society-camera-model-identification)
 
 For simulating semantic and subpopulation drift, one can use CIFAR-10 or ImageNet to hold-out some of the child classes e.g. hold out trucks while train on cars, both come in automobile category or hold out horse and train on deer.
 
@@ -234,9 +230,9 @@ Thanks to open source community, there are several libraries that help detect dr
 
 For deep-learning, [torchdrift.org](http://torchdrift.org) recently came out, the tensorflow world has it’s own TF validation module that allows developers to do define constraints, however its more focused on validation rather than drift detection. Some cloud vendors like AWS (SageMaker) and Domino also offer this out of box, although I have not tried either of them I feel like they’re more like TF validation than alibi-detect.
 
-Adversarial evaluation is great at pinpointing gaps in model. For CV, https://github.com/cleverhans-lab/cleverhans and for NLP https://github.com/QData/TextAttack and https://github.com/makcedward/nlpaug are great that can be combined with NLP behavioral https://github.com/marcotcr/checklist. Finally, https://github.com/Trusted-AI/adversarial-robustness-toolbox tilts more towards securing your models in production against attacks. These libraries make it easy for practitioners to cover more ground when it comes to successfully putting models in production.
+Adversarial evaluation is great at pinpointing gaps in model. For CV, [cleverhans](https://github.com/cleverhans-lab/cleverhans) and for NLP [TextAttack](https://github.com/QData/TextAttack) and [nlpaug](https://github.com/makcedward/nlpaug) are great that can be combined with NLP behavioral [checklist](https://github.com/marcotcr/checklist). Finally, [adversarial-robustness-toolbox](https://github.com/Trusted-AI/adversarial-robustness-toolbox) tilts more towards securing your models in production against attacks. These libraries make it easy for practitioners to cover more ground when it comes to successfully putting models in production.
 
-Apart from using libraries for detection, there are libraries available that will allow one to surface problems in their models like bias. If you have demographical metadata, you can use https://github.com/synthesized-io/fairlens library to evaluate whether your models are fair or not. 
+Apart from using libraries for detection, there are libraries available that will allow one to surface problems in their models like bias. If you have demographical metadata, you can use [fairlens](https://github.com/synthesized-io/fairlens) library to evaluate whether your models are fair or not. 
 
 # Summary
 
@@ -246,7 +242,6 @@ When it comes to adaptation, it is advised to do some due diligence on the type 
 
 Feel free to come back to above mentioned practitioners checklist. I also gave a talk on the subject recently which goes over some aspects like open set recognition as well.
 
-[https://www.youtube.com/watch?v=TbS_aphEG3Y&list=PL5zieHHAlvAqoGCKxj-orzBAMkP4zLsnl&index=33](https://www.youtube.com/watch?v=TbS_aphEG3Y&list=PL5zieHHAlvAqoGCKxj-orzBAMkP4zLsnl&index=33)
 
 # Appendix
 
@@ -254,7 +249,7 @@ Feel free to come back to above mentioned practitioners checklist. I also gave a
 
 A collection of examples that can help understand the concept better.
 
-In an effort to reduce bias towards British expression of language, say an erroneous GEC system is introduced by Google which lets one write colour as color or analyse as analyze. Now your statistically trained LLM has seen alot of one but not the other, even though semantic meaning p(y|x) remains the covariates (input) distribution has shifted p(x).
+In an effort to reduce bias towards British expression of language, say an erroneous GEC system is introduced by Google which lets one write colour as color or analyse as analyze. Now your statistically trained LLM has seen alot of one but not the other, even though semantic meaning `p(y|x)` remains the covariates (input) distribution has shifted `p(x)`.
 
 ## MLOps
 
