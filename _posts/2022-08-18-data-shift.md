@@ -10,6 +10,7 @@ tags:
   - MLOps
 toc: true
 toc_label: "Table of Contents"
+toc_sticky: true
 header:
   video:
     id: TbS_aphEG3Y
@@ -133,7 +134,7 @@ There are other emerging methods such as self-supervised and contrastive DA that
 
 I have divided the approaches one can take to address distribution shift based on which stage of the ML life-cycle you’re on.
 
-### Pre-training
+## Pre-training
 
 1. Find optimal time window to build reference dataset to be tested for drift. This will use useful in creating 1) calibration and 2) inference set.
 2. Carve out a calibration set that is separate from held-out test set and to be used after evaluating on test set first.
@@ -142,7 +143,7 @@ I have divided the approaches one can take to address distribution shift based o
     2. maintaining *i.i.d.* and temporally stratified sampling
 4. If possible, try to identify the type of shift you’ll most likely to experience between background or semantic.
 
-### In-training
+## In-training
 
 1. Open Set Recognition: Learning to abstain from prediction by differentiating in from out-of-domain distribution during more training
 2. Dropout to increase generalization and get uncertainty during inference
@@ -150,7 +151,7 @@ I have divided the approaches one can take to address distribution shift based o
 4. Don’t throw away your checkpoints: they’re free ensembles and we know that deep ensembles are one of the most robust methods against shift.
 5. Build invariances into your models: via data-aug and domain-adaptation technique
 
-### Post-training
+## Post-training
 
 1. Calibration
 2. MSP baselines (even better MLS)
@@ -158,7 +159,7 @@ I have divided the approaches one can take to address distribution shift based o
 4. Conformal prediction
 5. Clustering 
 
-### Post-deployment
+## Post-deployment
 
 1. Statistical testing on average metric degradation e.g. probability, accuracy of a batch
 2. Use MSP baseline calculated post-training to mark mis-classified or out of domain samples.
