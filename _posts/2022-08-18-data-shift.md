@@ -73,7 +73,7 @@ So far we’ve seen approaches that are general enough to be applied to any ML a
 
 Much earlier than NLP and stable. Has overlap with corruptions handling or increasing robustness of the models. It also shares work with research in algorithmic scene change detection. The primary contributors to *data shift* in real-world applications can be anywhere from camera noise, dynamic adjustments of the camera parameters (e.g. auto-exposure, auto-gain) to global (e.g. a cloud passing by the sun, light switches) and local (e.g. shadows cast by moving objects, light spots) scene illumination changes.
 
-Similar to how perplexity of an inference set was compared to baseline perplexity on test set in NLP, over on the CV side instead of perplexity, reconstruction loss is used [2]. 
+Similar to how perplexity of an inference set was compared to baseline perplexity on test set in NLP, over on the CV side instead of perplexity, reconstruction loss is used. 
 
 ![https://www.dominodatalab.com/hs-fs/hubfs/Imported_Blog_Media/Image-Drift-Detection-Figure-1-2-1.png?width=1463&height=282&name=Image-Drift-Detection-Figure-1-2-1.png](https://www.dominodatalab.com/hs-fs/hubfs/Imported_Blog_Media/Image-Drift-Detection-Figure-1-2-1.png?width=1463&height=282&name=Image-Drift-Detection-Figure-1-2-1.png)
 
@@ -105,7 +105,7 @@ Once transcribed gets reduced to text, it becomes an NLP problem to which all te
 
 There are several way to approach fixing model staleness depending on how much access one has to the ML life-cycle. Calibration methods are used when you only have access to model predictions, while density estimation methods are more involved with their usage of model internals and datasets. Naturally, density methods provide better robustness as you can explore and adapt your model to new tasks or shifted datasets. Calibration relies on using threshold of prediction and Density estimation instead fits model to a distribution. A middle ground can also be had by training surrogate models that learn to identify how a base model makes mistakes and corrects or flags them in production. Let us look at each of them in detail.
 
-### **Calibration**
+### Calibration
 
 This method relies only on the predicted probabilities and sometimes labels of train, test set. This comes with numerous of advantages such as no assumption on type of models, light weight by not needing access to datasets and consequently easy to implement. At the heart of this, a regression is performed that maps probabilities of original model to that of shifted data e.g. mean and variance of a feature in data shifted by 10%, then weightage is increased. Another method is to use thresholds, metrics are recorded and sorted followed by finding a threshold that allows pre-decided error rate. At test time, if threshold is crossed then an alert is triggered. If threshold is crossed for large number of samples All of these techniques can be used to learn weights that adapt output of model to newer datasets.
 
@@ -163,7 +163,9 @@ I have divided the approaches one can take to address distribution shift based o
 1. Statistical testing on average metric degradation e.g. probability, accuracy of a batch
 2. Use MSP baseline calculated post-training to mark mis-classified or out of domain samples.
 3. MMD or Wasserstein (EMD) distance check (not KL as it’s not symmetric) between mean training set and inference set encoding. The inference set is created using optimal time-window calculated in pre-training phase.
-4. Rely on adaptation techniques i.e. continual pre-training (not fine-tune) which comes free. Use a separate VM to adapt OR get creative with your usages e.g. re-use the same machine you have for production to train. Keep in mind that mitigation comes with its own can of worms, the biggest one being *catastrophic forgetting*. Remember, the biggest challenge back in 2016 with trying to do transfer learning was *catastrophic forgetting*, which happens when a model forgets it’s priors or in other words forgets what it had learned during training from original data when trained on a new dataset. Quite a lot of research has gone into trying to avoid it like removing lower layers, using smaller learning rate, distillation until LLMs came along that even though showed signs of *catastrophic forgetting* but to a smaller extent.5
+4. Rely on adaptation techniques i.e. continual pre-training (not fine-tune) which comes free. Use a separate VM to adapt OR get creative with your usages e.g. re-use the same machine you have for production to train. 
+    
+    Keep in mind that mitigation comes with its own can of worms, the biggest one being *catastrophic forgetting*. Remember, the biggest challenge back in 2016 with trying to do transfer learning was *catastrophic forgetting*, which happens when a model forgets it’s priors or in other words forgets what it had learned during training from original data when trained on a new dataset. Quite a lot of research has gone into trying to avoid it like removing lower layers, using smaller learning rate, distillation until LLMs came along that even though showed signs of *catastrophic forgetting* but to a smaller extent.5
 5. Cluster assignment testing: keep tabs on how easily can a given test sample be assigned a cluster. This will not scale if the data high dimensional.
 
 # Datasets
